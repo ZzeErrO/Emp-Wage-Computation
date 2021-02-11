@@ -4,7 +4,7 @@
 EMP_RATE_PER_HR=20
 IS_FULL_TIME=1
 IS_PART_TIME=2
-NUM_OF_WORKING_DAYS=5
+NUM_OF_WORKING_DAYS=20
 MAX_HRS_IN_MONTH=20
 
 #variable
@@ -27,12 +27,19 @@ function getWorkHrs() {
 	echo $empHrs
 }
 
+function calDailyWage() {
+	local workHrs=$1
+	wage=$(($workHrs*$EMP_RATE_PER_HR))
+	echo $wage
+}
+
 while [[ $totalEmpHrs -lt $MAX_HRS_IN_MONTH && $totalWorkingDays -lt $NUM_OF_WORKING_DAYS ]]
 do
-	((totalWorkingDays++))
+	((totalWorktingDays++))
 	empCheck=$(( RANDOM%3 ))
 	empHrs="$( getWorkHrs $empCheck )"
 	totalEmpHrs=$(($totalEmpHrs+$empHrs))
+	dailyWage[$totalWorkingDays]=$( calDailyWage $empHrs )
 
 done
 
