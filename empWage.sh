@@ -35,12 +35,13 @@ function calDailyWage() {
 
 while [[ $totalEmpHrs -lt $MAX_HRS_IN_MONTH && $totalWorkingDays -lt $NUM_OF_WORKING_DAYS ]]
 do
-	((totalWorktingDays++))
+	((totalWorkingDays++))
 	empCheck=$(( RANDOM%3 ))
 	empHrs="$( getWorkHrs $empCheck )"
 	totalEmpHrs=$(($totalEmpHrs+$empHrs))
 	dailyWage[$totalWorkingDays]=$( calDailyWage $empHrs )
-
+	echo $(($totalWorkingDays+1)) = $((dailyWage[$totalWorkingDays]))
 done
 
 totalSalary=$(( $totalEmpHrs*$EMP_RATE_PER_HR ))
+
